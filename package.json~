@@ -1,0 +1,24 @@
+{
+  "name": "calculateduetodate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cseby92/CalculateDueDate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cseby92/CalculateDueDate/issues"
+  },
+  "homepage": "https://github.com/cseby92/CalculateDueDate#readme",
+  "dependencies": {
+    "chai": "^4.1.0",
+    "datejs": "^1.0.0-rc3",
+    "mocha": "^3.5.0"
+  }
+}
