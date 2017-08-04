@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const workStartHour = 9;
 const workEndHour = 17;
