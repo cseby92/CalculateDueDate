@@ -66,7 +66,7 @@ function countWeekEndDays(date, hours) {
     return weekEndDays;
 }
 
-function calculateWeekeendDaysByDays(date, days) { //todo better solution?
+function calculateWeekeendDaysByDays(date, days) {
     let weekEndDays = 0;
     while (days !== 0) {
         date = addDays(date, 1);
