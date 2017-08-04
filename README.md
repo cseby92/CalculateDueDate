@@ -14,10 +14,3 @@ The program reads the currently reported problems (bugs) from an issue tracking 
 •	A problem can only be reported during working hours, which means that all submit date values fall between 9AM and 5PM. 
 •	Your task is to implement the CalculateDueDate method, which takes the submit date and turnaround time as an input and returns the date and time when the issue is to be resolved. 
 •	You can use the standard date time type or library that is part of the given language. 
-
-Additional info: 
-
-You should use your favorite language. 
-You shouldn’t write pseudo code. You should write code that you would commit/push to a repository and solves the given problem. 
-You have net maximum 24 hours to submit your solution in email to tamas.puski@emarsys.hu  
-You should submit even if you are not fully finished. 

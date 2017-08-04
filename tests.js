@@ -70,9 +70,9 @@ describe('CalculateDueDate ', function () {
 
     it('should return an Error: "Turnaround time must be >= 0"', () => {
         let now = new Date(2017, 7, 5, 16, 30);
-    expect(function () {
-        ordCalculateDueDate(now,-6);
-    }).to.throw(Error, 'Turnaround time must be >= 0');
+        expect(function () {
+            ordCalculateDueDate(now,-6);
+        }).to.throw(Error, 'Turnaround time must be >= 0');
 });
 
 });
