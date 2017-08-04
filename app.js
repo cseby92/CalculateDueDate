@@ -8,6 +8,10 @@ const numberOfSunday = 0;
 
 function ordCalculateDueDate(submitDate, turnAroundTime){
 
+    if(turnAroundTime < 0)
+        throw new Error('Turnaround time must be >= 0');
+    if(isWeekend(submitDate))
+        throw new Error('Submit date is a weekend day');
     if(turnAroundTime === 0)
         return submitDate;
     if(isStillThisWorkday(submitDate, turnAroundTime)){
@@ -15,7 +19,6 @@ function ordCalculateDueDate(submitDate, turnAroundTime){
     }else{
         return getOverLappingDate(submitDate,turnAroundTime);
     }
-
 }
 
 function isStillThisWorkday(date, hoursToAdd){
@@ -31,7 +34,11 @@ function getOverLappingDate(submitDate,turnAroundTime){
     let hoursToAdd = calculateHoursToAdd(submitDate,turnAroundTime);
     let daysAdded = addDays(submitDate,daysToAdd);
 
-    return new Date(daysAdded.getFullYear(), daysAdded.getMonth(), daysAdded.getDate(), workStartHour+hoursToAdd, daysAdded.getMinutes());
+    return new Date(daysAdded.getFullYear(),
+                    daysAdded.getMonth(),
+                    daysAdded.getDate(),
+                    workStartHour + hoursToAdd,
+                    daysAdded.getMinutes());
 }
 function calculateDaysToAdd(date, hours){
     let days = Math.floor((date.getHours() - workStartHour + hours) / workHours);
@@ -40,36 +47,51 @@ function calculateDaysToAdd(date, hours){
     return days + weekendDays;
 }
 
+function calculateHoursToAdd(date,hours){
+    return (date.getHours() - workStartHour + hours) % workHours;
+}
+
 function countWeekEndDays(date, hours){
     let tempDate = new Date(date);
-    let weekendDays = 0;
-    while(hours >= workHours){
-        date = addDays(tempDate,1);
-        if(isWeekend(tempDate)){
-            weekendDays+=2;
-            date = addDays(tempDate,1);
-        }else{
-            hours -= workHours;
-        }
-    }
+    let hoursToDays = Math.floor(hours / 8);
+    let remainingHours = hours % 8;
 
-    date = addHours(date,hours);
-    if(date.getHours() >= 17)
-        date = addDays(date,1);
-    if(isWeekend(date)){
-        weekendDays+=2;
+    let weekEndDays = calculateWeekeendDaysByDays(tempDate,hoursToDays);
+    weekEndDays += calculateWeekendByRemainingHours(tempDate, remainingHours);
+
+    return weekEndDays;
+}
+
+function calculateWeekeendDaysByDays(date, days){
+    let weekEndDays = 0;
+    while(days !== 0){
+        date = addDays(date, 1);
+        if(isWeekend(date)){
+            weekEndDays+= 2;
+            date = addDays(date, 1);
+        }else
+            days--;
     }
-    return weekendDays;
+    return weekEndDays;
+}
+
+function calculateWeekendByRemainingHours(date, hours) {
+    let weekEndDays = 0;
+    date = addHours(date, hours);
+    if(date.getHours() > 17){
+        date = addDays(date,1);
+        if(isWeekend(date))
+            weekEndDays+=2;
+    }
+    return weekEndDays;
 }
 
 function isWeekend(date){
     return date.getDay() === numberOfSunday || date.getDay() === numberOfSaturday;
 }
 
-function calculateHoursToAdd(date,hours){
-    return (date.getHours() - workStartHour + hours) % workHours;
-}
 function addDays(date, days){
-    return new Date(date.setDate( date.getDate() + days));
+    let tempDate = new Date(date);
+    return new Date(tempDate.setDate( tempDate.getDate() + days));
 }
 module.exports = ordCalculateDueDate;
