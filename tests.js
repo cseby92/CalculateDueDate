@@ -40,25 +40,31 @@ describe('CalculateDueDate ', function () {
         expect(ordCalculateDueDate(now,3)).to.eql(new Date(2017, 7, 7, 11, 30));
     });
 
-    it('should return the plus 3 days and skip the weekend plus the overlapping working hours', () => {
+    it('should return the date plus 3 days and skip the weekend plus the overlapping working hours', () => {
         let now = new Date(2017, 7, 4, 16, 30);
         expect(ordCalculateDueDate(now,3*8)).to.eql(new Date(2017, 7, 9, 16, 30));
     });
 
-    it('should return the plus 6 days and skip the weekend', () => {
+    it('should return the date plus 6 days and skip the weekend', () => {
         let now = new Date(2017, 7, 2, 16, 30);
         expect(ordCalculateDueDate(now,6*8)).to.eql(new Date(2017, 7, 10, 16, 30));
     });
 
-    it('should return the plus 16 days and skip the weekends', () => {
+    it('should return the date plus 16 days and skip the weekends', () => {
         let now = new Date(2017, 7, 2, 16, 30);
         expect(ordCalculateDueDate(now,16*8)).to.eql(new Date(2017, 7, 24, 16, 30));
     });
 
 
-    it('should return the plus 46 days and skip the weekends', () => {
+    it('should return the date plus 46 days and skip the weekends', () => {
         let now = new Date(2017, 7, 2, 16, 30);
         expect(ordCalculateDueDate(now,46*8)).to.eql(new Date(2017, 9, 5, 16, 30));
+    });
+
+
+    it('should return the date plus 46 days plus 3 hours and skip the weekends', () => {
+        let now = new Date(2017, 7, 2, 16, 30);
+        expect(ordCalculateDueDate(now,(46*8)+3)).to.eql(new Date(2017, 9, 6, 11, 30));
     });
 
     it('should return an Error: "Submit date is a weekend day"', () => {
@@ -73,7 +79,7 @@ describe('CalculateDueDate ', function () {
         expect(function () {
             ordCalculateDueDate(now,-6);
         }).to.throw(Error, 'Turnaround time must be >= 0');
-});
+    });
 
 });
 
