@@ -1,8 +1,8 @@
 'use strict';
 
-const WORKSTARTHOURS = 9;
-const WORKENDHOURS = 17;
-const WORKHOURS = WORKENDHOURS - WORKSTARTHOURS;
+const WORK_START_HOURS = 9;
+const WORK_END_HOURS = 17;
+const WORK_HOURS = WORK_END_HOURS - WORK_START_HOURS;
 const SATURDAY = 6;
 const SUNDAY = 0;
 
@@ -23,7 +23,7 @@ function ordCalculateDueDate(submitDate, turnAroundTime) {
 
 function isStillThisWorkday(date, hoursToAdd) {
 
-    let onTime = addHours(date, hoursToAdd).getHours() <= WORKENDHOURS;
+    let onTime = addHours(date, hoursToAdd).getHours() <= WORK_END_HOURS;
     let today = addHours(date, hoursToAdd).getDate() === date.getDate();
     return onTime && today;
 }
@@ -40,19 +40,19 @@ function getOverLappingDate(submitDate, turnAroundTime) {
     return new Date(daysAdded.getFullYear(),
         daysAdded.getMonth(),
         daysAdded.getDate(),
-        WORKSTARTHOURS + hoursToAdd,
+        WORK_START_HOURS + hoursToAdd,
         daysAdded.getMinutes());
 }
 
 function calculateDaysToAdd(date, hours) {
-    let days = Math.floor((date.getHours() - WORKSTARTHOURS + hours) / WORKHOURS);
+    let days = Math.floor((date.getHours() - WORK_START_HOURS + hours) / WORK_HOURS);
     let weekendDays = countWeekEndDays(date, hours);
 
     return days + weekendDays;
 }
 
 function calculateHoursToAdd(date, hours) {
-    return (date.getHours() - WORKSTARTHOURS + hours) % WORKHOURS;
+    return (date.getHours() - WORK_START_HOURS + hours) % WORK_HOURS;
 }
 
 function countWeekEndDays(date, hours) {
@@ -66,7 +66,7 @@ function countWeekEndDays(date, hours) {
     return weekEndDays;
 }
 
-function calculateWeekeendDaysByDays(date, days) {
+function calculateWeekeendDaysByDays(date, days) { //todo better solution?
     let weekEndDays = 0;
     while (days !== 0) {
         date = addDays(date, 1);
