@@ -22,7 +22,6 @@ function ordCalculateDueDate(submitDate, turnAroundTime) {
 }
 
 function isStillThisWorkday(date, hoursToAdd) {
-
     let onTime = addHours(date, hoursToAdd).getHours() <= WORK_END_HOURS;
     let today = addHours(date, hoursToAdd).getDate() === date.getDate();
     return onTime && today;
@@ -35,13 +34,8 @@ function addHours(date, hours) {
 function getOverLappingDate(submitDate, turnAroundTime) {
     let daysToAdd = calculateDaysToAdd(submitDate, turnAroundTime);
     let hoursToAdd = calculateHoursToAdd(submitDate, turnAroundTime);
-    let daysAdded = addDays(submitDate, daysToAdd);
 
-    return new Date(daysAdded.getFullYear(),
-        daysAdded.getMonth(),
-        daysAdded.getDate(),
-        WORK_START_HOURS + hoursToAdd,
-        daysAdded.getMinutes());
+    return addHoursAndDaysToDate(submitDate, daysToAdd, hoursToAdd);
 }
 
 function calculateDaysToAdd(date, hours) {
@@ -53,6 +47,17 @@ function calculateDaysToAdd(date, hours) {
 
 function calculateHoursToAdd(date, hours) {
     return (date.getHours() - WORK_START_HOURS + hours) % WORK_HOURS;
+}
+
+function addHoursAndDaysToDate(date, days, hours){
+    let daysAdded = addDays(date, days);
+    let daysAndHoursAdded = new Date(daysAdded.getFullYear(),
+        daysAdded.getMonth(),
+        daysAdded.getDate(),
+        WORK_START_HOURS + hours,
+        daysAdded.getMinutes());
+
+    return daysAndHoursAdded;
 }
 
 function countWeekEndDays(date, hours) {
