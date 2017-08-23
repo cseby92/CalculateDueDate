@@ -73,11 +73,12 @@ function countWeekEndDays(date, hours) {
 
 function calculateWeekeendDaysByDays(date, days) {
     let weekEndDays = 0;
+    let tempDate = new Date(date);
     while (days !== 0) {
-        date = addDays(date, 1);
-        if (isWeekend(date)) {
+        tempDate = addDays(tempDate, 1);
+        if (isWeekend(tempDate)) {
             weekEndDays += 2;
-            date = addDays(date, 1);
+            tempDate = addDays(tempDate, 1);
         } else
             days--;
     }
