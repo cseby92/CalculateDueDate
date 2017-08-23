@@ -24,6 +24,7 @@ function ordCalculateDueDate(submitDate, turnAroundTime) {
 function isStillThisWorkday(date, hoursToAdd) {
     let onTime = addHours(date, hoursToAdd).getHours() <= WORK_END_HOURS;
     let today = addHours(date, hoursToAdd).getDate() === date.getDate();
+
     return onTime && today;
 }
 
@@ -51,20 +52,13 @@ function calculateHoursToAdd(date, hours) {
 
 function addHoursAndDaysToDate(date, days, hours){
     let daysAdded = addDays(date, days);
-    let daysAndHoursAdded = new Date(daysAdded.getFullYear(),
-        daysAdded.getMonth(),
-        daysAdded.getDate(),
-        WORK_START_HOURS + hours,
-        daysAdded.getMinutes());
-
-    return daysAndHoursAdded;
+    return daysAdded.setHours(WORK_START_HOURS + hours);
 }
 
 function countWeekEndDays(date, hours) {
     let tempDate = new Date(date);
     let hoursToDays = Math.floor(hours / 8);
     let remainingHours = hours % 8;
-
     let weekEndDays = calculateWeekeendDaysByDays(tempDate, hoursToDays);
     weekEndDays += calculateWeekendByRemainingHours(tempDate, remainingHours);
 
