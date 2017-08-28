@@ -47,7 +47,7 @@ class DueToDateCalculator{
         }
     }
 
-    ordCalculateDueDate(submitDate, turnAroundTime) {
+    calculate(submitDate, turnAroundTime) {
 
         let a = new DueToDateCalculator();
 
@@ -146,7 +146,5 @@ class DueToDateCalculator{
         return new Date(tempDate.setDate(tempDate.getDate() + days));
     }
 }
-
-let a = new DueToDateCalculator(WorkScheduleFactory.createBasicSchedule);
 
 module.exports = {DueToDateCalculator, WorkScheduleFactory};

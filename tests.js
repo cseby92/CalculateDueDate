@@ -79,29 +79,34 @@ describe('CalculateDueDate ', function() {
 
     testData.forEach((data) => {
         it(data.testText, () => {
-            expect(calculator.ordCalculateDueDate(data.startDate, data.hoursToAdd))
+            expect(calculator.calculate(data.startDate, data.hoursToAdd))
                 .to.eql(data.toEql);
         });
     });
+    let dataError =
+    [
+        {
+            testText : 'should return an Error: "Submit date is a weekend day"',
+            startDate :  new Date(2017, 7, 5, 16, 30),
+            hoursToAdd : 123213,
+            toEql : 'Submit date is a weekend day'
+        },
+        {
+            testText : 'should return an Error: "Turnaround time must be >= 0"',
+            startDate :  new Date(2017, 7, 5, 16, 30),
+            hoursToAdd : -6,
+            toEql : 'Turnaround time must be >= 0'
+        }
+    ]
 
-    it('should return the date plus 46 days plus 3 hours and skip the weekends', () => {
-        let now = new Date(2017, 7, 2, 16, 30);
-        expect(calculator.ordCalculateDueDate(now, (46 * 8) + 3)).to.eql(new Date(2017, 9, 6, 11, 30));
+    dataError.forEach((data) => {
+        it(data.testText, () => {
+            expect( () => {
+                calculator.calculate(data.startDate, data.hoursToAdd);
+            }).to.throw(Error, data.toEql);
+        });
     });
-
-    it('should return an Error: "Submit date is a weekend day"', () => {
-        let now = new Date(2017, 7, 5, 16, 30);
-        expect(function() {
-            calculator.ordCalculateDueDate(now, 123213);
-        }).to.throw(Error, 'Submit date is a weekend day');
-    });
-
-    it('should return an Error: "Turnaround time must be >= 0"', () => {
-        let now = new Date(2017, 7, 5, 16, 30);
-        expect(function() {
-            calculator.ordCalculateDueDate(now, -6);
-        }).to.throw(Error, 'Turnaround time must be >= 0');
-    });
+    
 });
 
 function addMinutes(date, minutes) {
