@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const workScheduleMethods = require('./app');
 const WorkScheduleFactory = workScheduleMethods.WorkScheduleFactory;
 const DueToDateCalculator = workScheduleMethods.DueToDateCalculator;
+
 describe('CalculateDueDate ', function() {
 
     let testData = [
@@ -106,7 +107,26 @@ describe('CalculateDueDate ', function() {
             }).to.throw(Error, data.toEql);
         });
     });
-    
+
+    let calculator2 = new DueToDateCalculator(factory.createSchedule(8, 16, ['Saturday', 'Sunday']));
+
+    it('should return the next working day plus 2 hours with new schedule', () => {
+        expect(calculator2.calculate(new Date(2017,7,28,13,0),5)).to.eql(new Date(2017, 7, 29, 10, 0 ));
+    });
+
+    let calculator3 = new DueToDateCalculator(factory.createSchedule(9, 17, ['Saturday', 'Sunday', 'Monday']));
+
+
+    it('should return the n with new schedule', () => {
+        expect(calculator3.calculate(new Date(2017,7,16,13,0),4*8)).to.eql(new Date(2017, 7, 23, 13, 0 ));
+    });
+
+    it('should throw an error becouse monday is a non working day', () => {
+        expect(() => {
+            calculator3.calculate(new Date(2017,7,28,13,0), 2335234)
+        }).to.throw(Error, 'Submit date is a weekend day');
+    });
+
 });
 
 function addMinutes(date, minutes) {

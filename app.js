@@ -1,55 +1,71 @@
 'use strict';
 
-const WORK_START_HOURS = 9;
-const WORK_END_HOURS = 17;
-const WORK_HOURS = WORK_END_HOURS - WORK_START_HOURS;
-const SATURDAY = 6;
-const SUNDAY = 0;
+class WorkScheduleFactory {
 
-class WorkScheduleFactory{
+    createSchedule(workStartHours, workEndHours, weekendDays) {
+        let scheduleObject = {
+            workStartHours: workStartHours,
+            workEndHours: workEndHours,
+        }
+        scheduleObject.nonWorkingDays = weekendDays.map((day) => {
+                return this.dayToDateCode(day);
+        });
 
-    createSchedule(workStartHours, workEndHours, saturday, sunday){
+        console.log(scheduleObject);
+        return scheduleObject;
+    }
+
+    createBasicSchedule() {
         return {
-            //todo saturday sunday lekezelése, hogy ne számot kelljen beírni
-            //todo később munkaszüneti napok 1 tömbbe dinamikusan
-            workStartHours : workStartHours,
-            workEndHours : workEndHours,
-            saturday: saturday,
-            sunday : sunday
+            workStartHours: 9,
+            workEndHours: 17,
+            nonWorkingDays: [this.dayToDateCode('saturday'), this.dayToDateCode('sunday')]
         }
     }
 
-    createBasicSchedule(){
-        return {
-            workStartHours : 9,
-            workEndHours : 17,
-            saturday: 6,
-            sunday : 0
-        }
+    dayToDateCode(day) {
+        if (day.toLowerCase() === 'monday')
+            return 1;
+        if (day.toLowerCase() === 'tuesday')
+            return 2;
+        if (day.toLowerCase() === 'wednesday')
+            return 3;
+        if (day.toLowerCase() === 'thursday')
+            return 4;
+        if (day.toLowerCase() === 'friday')
+            return 5;
+        if (day.toLowerCase() === 'saturday')
+            return 6;
+        if (day.toLowerCase() === 'sunday')
+            return 0;
+
+        return 0;
+
     }
 }
 
-class DueToDateCalculator{
+class DueToDateCalculator {
 
-    constructor(workSchedule){
-        if(!workSchedule){
+    constructor(workSchedule) {
+        if (!workSchedule) {
             this.WORK_START_HOURS = 9;
             this.WORK_END_HOURS = 17;
-            this.WORK_HOURS = WORK_END_HOURS - WORK_START_HOURS;
-            this.SATURDAY = 6;
-            this.SUNDAY = 0;
-        }else{
+            this.WORK_HOURS = this.WORK_END_HOURS - this.WORK_START_HOURS;
+            this.NONWORKINGDAYS = [6, 0];//todo refactor
+        } else {
             this.WORK_START_HOURS = workSchedule.workStartHours;
             this.WORK_END_HOURS = workSchedule.workEndHours;
             this.WORK_HOURS = this.WORK_END_HOURS - this.WORK_START_HOURS;
-            this.SATURDAY = workSchedule.saturday;
-            this.SUNDAY = workSchedule.sunday;
+            this.NONWORKINGDAYS = workSchedule.nonWorkingDays;
+            let filterDuplicates = function(elem, index, self) {
+                return index == self.indexOf(elem);
+            };
+            this.NONWORKINGDAYS.filter(filterDuplicates);
         }
+
     }
 
     calculate(submitDate, turnAroundTime) {
-
-        let a = new DueToDateCalculator();
 
         if (turnAroundTime < 0)
             throw new Error('Turnaround time must be >= 0');
@@ -68,7 +84,7 @@ class DueToDateCalculator{
 
     isStillThisWorkday(date, hoursToAdd) {
 
-        let onTime = this.addHours(date, hoursToAdd).getHours() <= WORK_END_HOURS;
+        let onTime = this.addHours(date, hoursToAdd).getHours() <= this.WORK_END_HOURS;
         let today = this.addHours(date, hoursToAdd).getDate() === date.getDate();
 
         return onTime && today;
@@ -86,19 +102,19 @@ class DueToDateCalculator{
     }
 
     calculateDaysToAdd(date, hours) {
-        let days = Math.floor((date.getHours() - WORK_START_HOURS + hours) / WORK_HOURS);
+        let days = Math.floor((date.getHours() - this.WORK_START_HOURS + hours) / this.WORK_HOURS);
         let weekendDays = this.countWeekEndDays(date, hours);
 
         return days + weekendDays;
     }
 
     calculateHoursToAdd(date, hours) {
-        return (date.getHours() - WORK_START_HOURS + hours) % WORK_HOURS;
+        return (date.getHours() - this.WORK_START_HOURS + hours) % this.WORK_HOURS;
     }
 
-    addHoursAndDaysToDate(date, days, hours){
+    addHoursAndDaysToDate(date, days, hours) {
         let daysAdded = this.addDays(date, days);
-        return daysAdded.setHours(WORK_START_HOURS + hours);
+        return daysAdded.setHours(this.WORK_START_HOURS + hours);
     }
 
     countWeekEndDays(date, hours) {
@@ -117,11 +133,12 @@ class DueToDateCalculator{
         while (days !== 0) {
             tempDate = this.addDays(tempDate, 1);
             if (this.isWeekend(tempDate)) {
-                weekEndDays += 2;
-                tempDate = this.addDays(tempDate, 1);
+                weekEndDays += this.NONWORKINGDAYS.length;
+                tempDate = this.addDays(tempDate, this.NONWORKINGDAYS.length - 1);
             } else
                 days--;
         }
+
         return weekEndDays;
     }
 
@@ -131,14 +148,18 @@ class DueToDateCalculator{
         if (date.getHours() > 17) {
             date = this.addDays(date, 1);
             if (this.isWeekend(date))
-                weekEndDays += 2;
+                weekEndDays += this.NONWORKINGDAYS.length;
         }
         return weekEndDays;
     }
 
     isWeekend(date) {
         let day = date.getDay();
-        return day === SUNDAY || day === SATURDAY;
+        for (let i = 0; i < this.NONWORKINGDAYS.length; i++) {
+            if (day === this.NONWORKINGDAYS[i])
+                return true;
+        }
+        return false;
     }
 
     addDays(date, days) {
