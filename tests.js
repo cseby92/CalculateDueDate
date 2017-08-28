@@ -117,7 +117,7 @@ describe('CalculateDueDate ', function() {
     let calculator3 = new DueToDateCalculator(factory.createSchedule(9, 17, ['Saturday', 'Sunday', 'Monday']));
 
 
-    it('should return the n with new schedule', () => {
+    it('should return the next wednesday with new schedule', () => {
         expect(calculator3.calculate(new Date(2017,7,16,13,0),4*8)).to.eql(new Date(2017, 7, 23, 13, 0 ));
     });
 
