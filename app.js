@@ -8,7 +8,7 @@ class WorkScheduleFactory {
             workEndHours: workEndHours,
         }
         scheduleObject.nonWorkingDays = weekendDays.map((day) => {
-                return this.dayToDateCode(day);
+                return this._dayToDateCode(day);
         });
 
         console.log(scheduleObject);
@@ -19,11 +19,11 @@ class WorkScheduleFactory {
         return {
             workStartHours: 9,
             workEndHours: 17,
-            nonWorkingDays: [this.dayToDateCode('saturday'), this.dayToDateCode('sunday')]
+            nonWorkingDays: [this._dayToDateCode('saturday'), this._dayToDateCode('sunday')]
         }
     }
 
-    dayToDateCode(day) {
+    _dayToDateCode(day) {
         if (day.toLowerCase() === 'monday')
             return 1;
         if (day.toLowerCase() === 'tuesday')
@@ -51,7 +51,8 @@ class DueToDateCalculator {
             this.WORK_START_HOURS = 9;
             this.WORK_END_HOURS = 17;
             this.WORK_HOURS = this.WORK_END_HOURS - this.WORK_START_HOURS;
-            this.NONWORKINGDAYS = [6, 0];//todo refactor
+            const SATURDAY = 6, SUNDAY = 0;
+            this.NONWORKINGDAYS = [SATURDAY, SUNDAY];
         } else {
             this.WORK_START_HOURS = workSchedule.workStartHours;
             this.WORK_END_HOURS = workSchedule.workEndHours;
@@ -69,72 +70,70 @@ class DueToDateCalculator {
 
         if (turnAroundTime < 0)
             throw new Error('Turnaround time must be >= 0');
-        if (this.isWeekend(submitDate))
+        if (this._isWeekend(submitDate))
             throw new Error('Submit date is a weekend day');
         if (turnAroundTime === 0)
             return submitDate;
-        if (this.isStillThisWorkday(submitDate, turnAroundTime)) {
-            return this.addHours(submitDate, turnAroundTime);
+        if (this._isStillThisWorkday(submitDate, turnAroundTime)) {
+            return this._addHours(submitDate, turnAroundTime);
         } else {
-            return new Date(this.getOverLappingDate(submitDate, turnAroundTime));
+            return new Date(this._getOverLappingDate(submitDate, turnAroundTime));
         }
     }
 
-    //todo: hide theese private functions????
+    _isStillThisWorkday(date, hoursToAdd) {
 
-    isStillThisWorkday(date, hoursToAdd) {
-
-        let onTime = this.addHours(date, hoursToAdd).getHours() <= this.WORK_END_HOURS;
-        let today = this.addHours(date, hoursToAdd).getDate() === date.getDate();
+        let onTime = this._addHours(date, hoursToAdd).getHours() <= this.WORK_END_HOURS;
+        let today = this._addHours(date, hoursToAdd).getDate() === date.getDate();
 
         return onTime && today;
     }
 
-    addHours(date, hours) {
+    _addHours(date, hours) {
         return new Date(date.getTime() + hours * 60000 * 60);
     }
 
-    getOverLappingDate(submitDate, turnAroundTime) {
-        let daysToAdd = this.calculateDaysToAdd(submitDate, turnAroundTime);
-        let hoursToAdd = this.calculateHoursToAdd(submitDate, turnAroundTime);
+    _getOverLappingDate(submitDate, turnAroundTime) {
+        let daysToAdd = this._calculateDaysToAdd(submitDate, turnAroundTime);
+        let hoursToAdd = this._calculateHoursToAdd(submitDate, turnAroundTime);
 
-        return this.addHoursAndDaysToDate(submitDate, daysToAdd, hoursToAdd);
+        return this._addHoursAndDaysToDate(submitDate, daysToAdd, hoursToAdd);
     }
 
-    calculateDaysToAdd(date, hours) {
+    _calculateDaysToAdd(date, hours) {
         let days = Math.floor((date.getHours() - this.WORK_START_HOURS + hours) / this.WORK_HOURS);
-        let weekendDays = this.countWeekEndDays(date, hours);
+        let weekendDays = this._countWeekEndDays(date, hours);
 
         return days + weekendDays;
     }
 
-    calculateHoursToAdd(date, hours) {
+    _calculateHoursToAdd(date, hours) {
         return (date.getHours() - this.WORK_START_HOURS + hours) % this.WORK_HOURS;
     }
 
-    addHoursAndDaysToDate(date, days, hours) {
-        let daysAdded = this.addDays(date, days);
+    _addHoursAndDaysToDate(date, days, hours) {
+        let daysAdded = this._addDays(date, days);
         return daysAdded.setHours(this.WORK_START_HOURS + hours);
     }
 
-    countWeekEndDays(date, hours) {
+    _countWeekEndDays(date, hours) {
         let tempDate = new Date(date);
         let hoursToDays = Math.floor(hours / 8);
         let remainingHours = hours % 8;
-        let weekEndDays = this.calculateWeekeendDaysByDays(tempDate, hoursToDays);
-        weekEndDays += this.calculateWeekendByRemainingHours(tempDate, remainingHours);
+        let weekEndDays = this._calculateWeekeendDaysByDays(tempDate, hoursToDays);
+        weekEndDays += this._calculateWeekendByRemainingHours(tempDate, remainingHours);
 
         return weekEndDays;
     }
 
-    calculateWeekeendDaysByDays(date, days) {
+    _calculateWeekeendDaysByDays(date, days) {
         let weekEndDays = 0;
         let tempDate = new Date(date);
         while (days !== 0) {
-            tempDate = this.addDays(tempDate, 1);
-            if (this.isWeekend(tempDate)) {
+            tempDate = this._addDays(tempDate, 1);
+            if (this._isWeekend(tempDate)) {
                 weekEndDays += this.NONWORKINGDAYS.length;
-                tempDate = this.addDays(tempDate, this.NONWORKINGDAYS.length - 1);
+                tempDate = this._addDays(tempDate, this.NONWORKINGDAYS.length - 1);
             } else
                 days--;
         }
@@ -142,18 +141,18 @@ class DueToDateCalculator {
         return weekEndDays;
     }
 
-    calculateWeekendByRemainingHours(date, hours) {
+    _calculateWeekendByRemainingHours(date, hours) {
         let weekEndDays = 0;
-        date = this.addHours(date, hours);
+        date = this._addHours(date, hours);
         if (date.getHours() > 17) {
-            date = this.addDays(date, 1);
-            if (this.isWeekend(date))
+            date = this._addDays(date, 1);
+            if (this._isWeekend(date))
                 weekEndDays += this.NONWORKINGDAYS.length;
         }
         return weekEndDays;
     }
 
-    isWeekend(date) {
+    _isWeekend(date) {
         let day = date.getDay();
         for (let i = 0; i < this.NONWORKINGDAYS.length; i++) {
             if (day === this.NONWORKINGDAYS[i])
@@ -162,7 +161,7 @@ class DueToDateCalculator {
         return false;
     }
 
-    addDays(date, days) {
+    _addDays(date, days) {
         let tempDate = new Date(date);
         return new Date(tempDate.setDate(tempDate.getDate() + days));
     }

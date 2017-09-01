@@ -7,7 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d3e109c-7276-4c09-aa7a-6dab89dec223" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests.js" afterPath="$PROJECT_DIR$/tests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,8 +26,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2623">
-              <caret line="58" column="62" lean-forward="false" selection-start-line="58" selection-start-column="62" selection-end-line="58" selection-end-column="62" />
+            <state relative-caret-position="1458">
+              <caret line="54" column="53" lean-forward="false" selection-start-line="54" selection-start-column="53" selection-end-line="54" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -35,8 +36,8 @@
       <file leaf-file-name="tests.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="119" column="40" lean-forward="false" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
+            <state relative-caret-position="50">
+              <caret line="120" column="9" lean-forward="true" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -46,9 +47,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add</find>
       <find>date.get</find>
-      <find>addDays</find>
       <find>8</find>
       <find>tempda</find>
       <find>adddays</find>
@@ -76,6 +75,8 @@
       <find>basic</find>
       <find>console</find>
       <find>map</find>
+      <find>addDays</find>
+      <find>addMinutes</find>
     </findStrings>
     <replaceStrings>
       <replace>getDate</replace>
@@ -83,6 +84,7 @@
       <replace>SUNDAY</replace>
       <replace>this.WORK_START_HOURS</replace>
       <replace>this.WORK_HOURS</replace>
+      <replace>_addDays</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -94,8 +96,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/tests.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -294,53 +296,54 @@
       <workItem from="1503405253024" duration="873000" />
       <workItem from="1503511433411" duration="12474000" />
       <workItem from="1503919809315" duration="193000" />
-      <workItem from="1503920016025" duration="10838000" />
+      <workItem from="1503920016025" duration="12689000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 20h 56m 52s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.08.31 at 17h 33m 35s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 20h 56m 59s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.08.31 at 17h 33m 43s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 20h 57m 08s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.08.31 at 17h 34m 00s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 20h 57m 44s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.08.31 at 17h 34m 10s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 21h 02m 15s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.08.31 at 17h 34m 25s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 21h 02m 49s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.09.01 at 15h 16m 56s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 21h 03m 16s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.09.01 at 15h 17m 17s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 21h 03m 34s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.09.01 at 15h 17m 58s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 21h 04m 03s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.09.01 at 15h 18m 23s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="CalculateDueDate_ - 2017.08.28 at 21h 13m 02s.xml">
+    <history-entry file="CalculateDueDate_ - 2017.09.01 at 15h 19m 29s.xml">
       <configuration name="CalculateDueDate " configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70405000" />
+    <option name="totallyTimeSpent" value="72256000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1924" height="1048" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24763903" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -463,16 +466,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2623">
-          <caret line="58" column="62" lean-forward="false" selection-start-line="58" selection-start-column="62" selection-end-line="58" selection-end-column="62" />
+        <state relative-caret-position="1458">
+          <caret line="54" column="53" lean-forward="false" selection-start-line="54" selection-start-column="53" selection-end-line="54" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="119" column="40" lean-forward="false" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
+        <state relative-caret-position="50">
+          <caret line="120" column="9" lean-forward="true" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
           <folding />
         </state>
       </provider>
